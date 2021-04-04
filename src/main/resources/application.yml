@@ -1,0 +1,32 @@
+server:
+  port: 9001
+
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/xxl_user?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  rabbitmq:
+    #port: 5672
+    #host: 121.4.155.78
+    username: admin
+    password: admin
+    virtual-host: /
+    listener:
+      simple:
+        acknowledge-mode: manual  # 这里是开启手动ack，让程序去控制MQ的消息的重发和删除和转移
+        retry:
+          enabled: true  # 开启重试
+          max-attempts: 3  #最大重试次数
+          initial-interval: 2000ms  #重试间隔时间
+    addresses: 121.4.155.78:5672
+
+logging:
+  level:
+    root: debug
+
+mybatis:
+  type-aliases-package: com.koushidai.xiaoyuanli.registrationservice.pojo
+  mapper-locations: classpath:mapper/*.xml

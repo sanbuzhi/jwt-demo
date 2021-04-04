@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.koushidai.xiaoyuanli.registrationservice.mapper.UserMapper">
+    <select id="getUserInfoById" resultType="com.koushidai.xiaoyuanli.registrationservice.pojo.UserInfoDomain">
+        select * from xxl_user.user_tb where userId = #{userId, jdbcType=INTEGER}
+    </select>
+    <insert id="insertUser" parameterType="com.koushidai.xiaoyuanli.registrationservice.pojo.UserInfoDomain">
+        insert into xxl_user.user_tb(nickName, realName, schoolId, contactAddress, contactEmail, contactPhoneNum)
+        values (#{nickName}, #{realName}, #{schoolId}, #{contactAddress}, #{contactEmail}, #{contactPhoneNum})
+    </insert>
+
+    <select id="ifUserExist" parameterType="com.koushidai.xiaoyuanli.registrationservice.pojo.UserInfoDomain" resultType="Integer">
+        select count(*) from xxl_user.user_tb where
+        contactEmail = #{contactEmail} or
+        contactPhoneNum = #{contactPhoneNum}
+    </select>
+
+</mapper>
